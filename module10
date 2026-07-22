@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Parking Dashboard</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#1d976c,#93f9b9);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.container{
+    width:90%;
+    max-width:850px;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.25);
+}
+
+h1{
+    text-align:center;
+    color:#333;
+    margin-bottom:25px;
+}
+
+.summary{
+    display:flex;
+    justify-content:space-around;
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.box{
+    flex:1;
+    padding:20px;
+    border-radius:12px;
+    text-align:center;
+    color:white;
+    font-size:20px;
+}
+
+.available{
+    background:#28a745;
+}
+
+.occupied{
+    background:#dc3545;
+}
+
+.total{
+    background:#007bff;
+}
+
+.value{
+    font-size:35px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.slots{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+    gap:15px;
+}
+
+.slot{
+    padding:20px;
+    border-radius:10px;
+    text-align:center;
+    font-size:18px;
+    font-weight:bold;
+    color:white;
+}
+
+.free{
+    background:#28a745;
+}
+
+.busy{
+    background:#dc3545;
+}
+
+.footer{
+    text-align:center;
+    margin-top:20px;
+    color:#777;
+}
+
+@media(max-width:600px){
+    .summary{
+        flex-direction:column;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🚗 Smart Parking Dashboard</h1>
+
+
+<div class="summary">
+
+<div class="box available">
+    Available Slots
+    <div class="value" id="available">0</div>
+</div>
+
+<div class="box occupied">
+    Occupied Slots
+    <div class="value" id="occupied">0</div>
+</div>
+
+<div class="box total">
+    Total Slots
+    <div class="value" id="total">0</div>
+</div>
+
+</div>
+
+
+<div class="slots" id="parkingSlots">
+
+</div>
+
+
+<div class="footer">
+    Last Updated:
+    <span id="time"></span>
+</div>
+
+
+</div>
+
+
+<script>
+
+let parking = [
+    {id:1,status:"free"},
+    {id:2,status:"busy"},
+    {id:3,status:"free"},
+    {id:4,status:"busy"},
+    {id:5,status:"free"},
+    {id:6,status:"free"}
+];
+
+
+function updateParking(){
+
+    let available = 0;
+    let occupied = 0;
+
+    let container = document.getElementById("parkingSlots");
+    container.innerHTML="";
+
+
+    parking.forEach(slot=>{
+
+        let div=document.createElement("div");
+
+        div.className="slot " + slot.status;
+
+        if(slot.status=="free"){
+            div.innerHTML="🟢 Slot "+slot.id+"<br>Available";
+            available++;
+        }
+        else{
+            div.innerHTML="🔴 Slot "+slot.id+"<br>Occupied";
+            occupied++;
+        }
+
+        container.appendChild(div);
+
+    });
+
+
+    document.getElementById("available").innerHTML = available;
+    document.getElementById("occupied").innerHTML = occupied;
+    document.getElementById("total").innerHTML = parking.length;
+
+
+    document.getElementById("time").innerHTML =
+        new Date().toLocaleTimeString();
+
+}
+
+
+updateParking();
+
+
+// Simulate parking sensor update
+setInterval(()=>{
+
+    parking.forEach(slot=>{
+        slot.status = Math.random()>0.5 ? "free":"busy";
+    });
+
+    updateParking();
+
+},3000);
+
+
+</script>
+
+</body>
+</html>
