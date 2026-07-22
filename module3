@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature & Humidity Monitor</title>
+
+    <style>
+        body{
+            margin:0;
+            font-family:Arial, sans-serif;
+            background:linear-gradient(135deg,#4facfe,#00f2fe);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+        }
+
+        .card{
+            background:#fff;
+            padding:30px;
+            border-radius:15px;
+            box-shadow:0 10px 25px rgba(0,0,0,.2);
+            text-align:center;
+            width:320px;
+        }
+
+        h1{
+            color:#333;
+            margin-bottom:20px;
+        }
+
+        .reading{
+            font-size:28px;
+            margin:20px 0;
+            font-weight:bold;
+            color:#0077cc;
+        }
+
+        .label{
+            font-size:18px;
+            color:#555;
+        }
+
+        .footer{
+            margin-top:20px;
+            color:#888;
+            font-size:14px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>🌡 Temperature & Humidity Monitor</h1>
+
+    <div class="reading">
+        <div class="label">Temperature</div>
+        <span id="temp">28.5</span> °C
+    </div>
+
+    <div class="reading">
+        <div class="label">Humidity</div>
+        <span id="hum">65</span> %
+    </div>
+
+    <div class="footer">
+        Live Sensor Data
+    </div>
+</div>
+
+<script>
+function updateData(){
+    // Replace these values with data from your ESP32 server
+    document.getElementById("temp").innerHTML =
+        (25 + Math.random()*10).toFixed(1);
+
+    document.getElementById("hum").innerHTML =
+        Math.floor(50 + Math.random()*30);
+}
+
+// Update every 2 seconds
+setInterval(updateData, 2000);
+updateData();
+</script>
+
+</body>
+</html>
