@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Water Tank Monitoring System</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#00c6ff,#0072ff);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.container{
+    background:#fff;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 10px 20px rgba(0,0,0,0.2);
+    width:350px;
+    text-align:center;
+}
+
+h1{
+    color:#333;
+    margin-bottom:20px;
+}
+
+.progress-container{
+    width:100%;
+    height:30px;
+    background:#ddd;
+    border-radius:20px;
+    overflow:hidden;
+    margin:20px 0;
+}
+
+.progress-bar{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#00b4db,#0083b0);
+    color:white;
+    font-weight:bold;
+    text-align:center;
+    line-height:30px;
+    transition:width 0.8s ease;
+}
+
+.status{
+    font-size:20px;
+    color:#444;
+    margin-top:15px;
+}
+
+.footer{
+    margin-top:20px;
+    color:#777;
+    font-size:14px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h1>💧 Water Tank Monitoring</h1>
+
+<div class="progress-container">
+    <div class="progress-bar" id="waterBar">0%</div>
+</div>
+
+<div class="status">
+    Water Level:
+    <strong id="waterLevel">0%</strong>
+</div>
+
+<div class="footer">
+    Last Updated:
+    <span id="time"></span>
+</div>
+
+</div>
+
+<script>
+
+function updateTankLevel(){
+
+    // Replace with actual sensor value from ESP32/API
+    let level = Math.floor(Math.random()*101);
+
+    document.getElementById("waterBar").style.width = level + "%";
+    document.getElementById("waterBar").innerHTML = level + "%";
+    document.getElementById("waterLevel").innerHTML = level + "%";
+
+    if(level > 75){
+        document.getElementById("waterBar").style.background="#28a745";
+    }
+    else if(level > 40){
+        document.getElementById("waterBar").style.background="#ffc107";
+    }
+    else{
+        document.getElementById("waterBar").style.background="#dc3545";
+    }
+
+    document.getElementById("time").innerHTML =
+        new Date().toLocaleTimeString();
+}
+
+updateTankLevel();
+setInterval(updateTankLevel,2000);
+
+</script>
+
+</body>
+</html>
