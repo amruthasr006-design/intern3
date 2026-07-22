@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RFID Attendance Dashboard</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.container{
+    width:90%;
+    max-width:900px;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.25);
+}
+
+h1{
+    text-align:center;
+    color:#333;
+    margin-bottom:25px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    overflow:hidden;
+    border-radius:10px;
+}
+
+th{
+    background:#007bff;
+    color:white;
+    padding:15px;
+    font-size:16px;
+}
+
+td{
+    padding:12px;
+    text-align:center;
+    border-bottom:1px solid #ddd;
+}
+
+tr:hover{
+    background:#f1f1f1;
+}
+
+.present{
+    color:green;
+    font-weight:bold;
+}
+
+.absent{
+    color:red;
+    font-weight:bold;
+}
+
+.card{
+    margin-top:20px;
+    padding:15px;
+    background:#f5f5f5;
+    border-radius:10px;
+    text-align:center;
+}
+
+.footer{
+    text-align:center;
+    margin-top:20px;
+    color:#777;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📇 RFID Attendance Dashboard</h1>
+
+<table>
+
+<thead>
+<tr>
+    <th>RFID ID</th>
+    <th>Name</th>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Status</th>
+</tr>
+</thead>
+
+<tbody id="attendanceTable">
+
+<tr>
+    <td>102938</td>
+    <td>John</td>
+    <td>21-07-2026</td>
+    <td>09:05 AM</td>
+    <td class="present">Present</td>
+</tr>
+
+<tr>
+    <td>564738</td>
+    <td>Sarah</td>
+    <td>21-07-2026</td>
+    <td>09:10 AM</td>
+    <td class="present">Present</td>
+</tr>
+
+<tr>
+    <td>918273</td>
+    <td>David</td>
+    <td>21-07-2026</td>
+    <td>--</td>
+    <td class="absent">Absent</td>
+</tr>
+
+</tbody>
+
+</table>
+
+
+<div class="card">
+    Total Attendance:
+    <strong id="count">2</strong>
+</div>
+
+
+<div class="footer">
+    Last Updated:
+    <span id="time"></span>
+</div>
+
+
+</div>
+
+
+<script>
+
+function updateTime(){
+
+    document.getElementById("time").innerHTML =
+        new Date().toLocaleTimeString();
+
+}
+
+updateTime();
+setInterval(updateTime,1000);
+
+
+// Example function to add new RFID attendance record
+
+function addAttendance(id,name){
+
+    let table = document.getElementById("attendanceTable");
+
+    let row = table.insertRow();
+
+    row.innerHTML = `
+        <td>${id}</td>
+        <td>${name}</td>
+        <td>${new Date().toLocaleDateString()}</td>
+        <td>${new Date().toLocaleTimeString()}</td>
+        <td class="present">Present</td>
+    `;
+
+}
+
+</script>
+
+</body>
+</html>
