@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IoT Device Monitoring Dashboard</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+}
+
+.container{
+    width:90%;
+    max-width:950px;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+h1{
+    text-align:center;
+    color:#333;
+    margin-bottom:25px;
+}
+
+.devices{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.device-card{
+    background:#f5f5f5;
+    padding:20px;
+    border-radius:12px;
+    border-left:6px solid #007bff;
+}
+
+.device-name{
+    font-size:22px;
+    font-weight:bold;
+    color:#333;
+}
+
+.status{
+    display:inline-block;
+    margin:12px 0;
+    padding:8px 15px;
+    border-radius:20px;
+    font-weight:bold;
+}
+
+.online{
+    background:#28a745;
+    color:white;
+}
+
+.offline{
+    background:#dc3545;
+    color:white;
+}
+
+.data{
+    margin-top:10px;
+    font-size:17px;
+    color:#555;
+}
+
+.value{
+    color:#007bff;
+    font-weight:bold;
+}
+
+.footer{
+    text-align:center;
+    margin-top:25px;
+    color:#777;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📡 IoT Device Monitoring Dashboard</h1>
+
+
+<div class="devices">
+
+
+<div class="device-card">
+
+<div class="device-name">
+🌡 Weather Sensor
+</div>
+
+<div class="status online" id="status1">
+Online
+</div>
+
+<div class="data">
+Temperature:
+<span class="value" id="temp">
+28°C
+</span>
+</div>
+
+<div class="data">
+Humidity:
+<span class="value" id="humidity">
+65%
+</span>
+</div>
+
+<div class="data">
+Last Update:
+<span class="value" id="update1">
+-- 
+</span>
+</div>
+
+</div>
+
+
+
+<div class="device-card">
+
+<div class="device-name">
+💧 Water Level Sensor
+</div>
+
+<div class="status offline" id="status2">
+Offline
+</div>
+
+<div class="data">
+Water Level:
+<span class="value" id="water">
+45%
+</span>
+</div>
+
+<div class="data">
+Battery:
+<span class="value">
+78%
+</span>
+</div>
+
+<div class="data">
+Last Update:
+<span class="value" id="update2">
+--
+</span>
+</div>
+
+</div>
+
+
+
+<div class="device-card">
+
+<div class="device-name">
+🏭 Machine Sensor
+</div>
+
+<div class="status online" id="status3">
+Online
+</div>
+
+<div class="data">
+Vibration:
+<span class="value" id="vibration">
+2.4 mm/s
+</span>
+</div>
+
+<div class="data">
+Temperature:
+<span class="value" id="machineTemp">
+70°C
+</span>
+</div>
+
+<div class="data">
+Last Update:
+<span class="value" id="update3">
+--
+</span>
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="footer">
+Dashboard Updated:
+<span id="time"></span>
+</div>
+
+
+</div>
+
+
+<script>
+
+
+function updateDashboard(){
+
+    let currentTime =
+    new Date().toLocaleTimeString();
+
+
+    // Simulated sensor values
+    document.getElementById("temp").innerHTML =
+        Math.floor(25+Math.random()*10)+"°C";
+
+    document.getElementById("humidity").innerHTML =
+        Math.floor(50+Math.random()*40)+"%";
+
+
+    document.getElementById("water").innerHTML =
+        Math.floor(Math.random()*100)+"%";
+
+
+    document.getElementById("vibration").innerHTML =
+        (Math.random()*5).toFixed(2)+" mm/s";
+
+
+    document.getElementById("machineTemp").innerHTML =
+        Math.floor(60+Math.random()*30)+"°C";
+
+
+    document.getElementById("update1").innerHTML=currentTime;
+    document.getElementById("update2").innerHTML=currentTime;
+    document.getElementById("update3").innerHTML=currentTime;
+
+    document.getElementById("time").innerHTML=currentTime;
+
+
+}
+
+
+// Example device status update
+function setDeviceStatus(id,online){
+
+    let element=document.getElementById(id);
+
+    if(online){
+        element.innerHTML="Online";
+        element.className="status online";
+    }
+    else{
+        element.innerHTML="Offline";
+        element.className="status offline";
+    }
+
+}
+
+
+updateDashboard();
+
+setInterval(updateDashboard,3000);
+
+
+</script>
+
+</body>
+</html>
