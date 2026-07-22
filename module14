@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Industrial IoT Dashboard</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#434343,#000000);
+}
+
+.container{
+    width:90%;
+    max-width:900px;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+
+h1{
+    text-align:center;
+    color:#333;
+    margin-bottom:25px;
+}
+
+.dashboard{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:#f4f4f4;
+    padding:25px;
+    border-radius:12px;
+    text-align:center;
+}
+
+.icon{
+    font-size:45px;
+}
+
+.value{
+    font-size:32px;
+    font-weight:bold;
+    color:#007bff;
+    margin:15px 0;
+}
+
+.label{
+    color:#555;
+    font-size:18px;
+}
+
+.status{
+    margin-top:25px;
+    padding:15px;
+    border-radius:10px;
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.normal{
+    background:#28a745;
+    color:white;
+}
+
+.warning{
+    background:#ffc107;
+    color:black;
+}
+
+.danger{
+    background:#dc3545;
+    color:white;
+    animation:blink 1s infinite;
+}
+
+.footer{
+    text-align:center;
+    margin-top:20px;
+    color:#777;
+}
+
+@keyframes blink{
+    50%{
+        opacity:0.5;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🏭 Industrial IoT Dashboard</h1>
+
+
+<div class="dashboard">
+
+<div class="card">
+    <div class="icon">🌡</div>
+    <div class="value" id="temperature">75°C</div>
+    <div class="label">Machine Temperature</div>
+</div>
+
+
+<div class="card">
+    <div class="icon">📳</div>
+    <div class="value" id="vibration">2.5 mm/s</div>
+    <div class="label">Vibration Level</div>
+</div>
+
+
+<div class="card">
+    <div class="icon">⚙️</div>
+    <div class="value" id="machine">Running</div>
+    <div class="label">Machine Status</div>
+</div>
+
+
+</div>
+
+
+<div class="status normal" id="alert">
+    🟢 Machine Operating Normally
+</div>
+
+
+<div class="footer">
+    Last Updated:
+    <span id="time"></span>
+</div>
+
+
+</div>
+
+
+<script>
+
+
+function updateMachine(){
+
+    // Replace with real industrial sensor data
+
+    let temperature = Math.floor(50 + Math.random()*60);
+    let vibration = (Math.random()*8).toFixed(2);
+
+    document.getElementById("temperature").innerHTML =
+        temperature + " °C";
+
+    document.getElementById("vibration").innerHTML =
+        vibration + " mm/s";
+
+
+    let status=document.getElementById("alert");
+    let machine=document.getElementById("machine");
+
+
+    if(temperature > 100 || vibration > 6){
+
+        machine.innerHTML="Fault";
+
+        status.innerHTML=
+        "🔴 Machine Fault Detected";
+
+        status.className="status danger";
+
+    }
+
+    else if(temperature > 80 || vibration > 3){
+
+        machine.innerHTML="Warning";
+
+        status.innerHTML=
+        "🟡 Maintenance Required";
+
+        status.className="status warning";
+
+    }
+
+    else{
+
+        machine.innerHTML="Running";
+
+        status.innerHTML=
+        "🟢 Machine Operating Normally";
+
+        status.className="status normal";
+
+    }
+
+
+    document.getElementById("time").innerHTML =
+        new Date().toLocaleTimeString();
+
+}
+
+
+updateMachine();
+
+setInterval(updateMachine,2000);
+
+
+</script>
+
+</body>
+</html>
