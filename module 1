@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LED Control Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f2f2f2;
+            margin-top: 80px;
+        }
+        h1 {
+            color: darkblue;
+        }
+        button {
+            width: 120px;
+            height: 45px;
+            font-size: 18px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+        }
+        .on {
+            background-color: green;
+        }
+        .off {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>LED Control Dashboard</h1>
+
+    <button class="on">LED ON</button>
+    <button class="off">LED OFF</button>
+
+</body>
+</html>
