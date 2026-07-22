@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fire & Gas Alert Dashboard</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff512f,#dd2476);
+}
+
+.container{
+    width:90%;
+    max-width:700px;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+    text-align:center;
+}
+
+h1{
+    color:#333;
+    margin-bottom:25px;
+}
+
+.dashboard{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:#f5f5f5;
+    padding:25px;
+    border-radius:12px;
+}
+
+.icon{
+    font-size:45px;
+}
+
+.value{
+    font-size:30px;
+    font-weight:bold;
+    color:#007bff;
+    margin:10px;
+}
+
+.label{
+    font-size:18px;
+    color:#555;
+}
+
+.alert{
+    margin-top:25px;
+    padding:15px;
+    border-radius:10px;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.safe{
+    background:#28a745;
+    color:white;
+}
+
+.warning{
+    background:#ffc107;
+    color:black;
+}
+
+.danger{
+    background:#dc3545;
+    color:white;
+    animation:blink 0.8s infinite;
+}
+
+button{
+    margin-top:20px;
+    padding:12px 30px;
+    font-size:18px;
+    border:none;
+    border-radius:8px;
+    background:#dc3545;
+    color:white;
+    cursor:pointer;
+}
+
+button:hover{
+    opacity:0.8;
+}
+
+.footer{
+    margin-top:20px;
+    color:#777;
+}
+
+@keyframes blink{
+    50%{
+        opacity:0.5;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🔥 Fire & Gas Alert Dashboard</h1>
+
+<div class="dashboard">
+
+<div class="card">
+    <div class="icon">🔥</div>
+    <div class="value" id="fire">SAFE</div>
+    <div class="label">Fire Sensor</div>
+</div>
+
+
+<div class="card">
+    <div class="icon">💨</div>
+    <div class="value" id="gas">0 PPM</div>
+    <div class="label">Gas Level</div>
+</div>
+
+</div>
+
+
+<div class="alert safe" id="alert">
+    🟢 System Normal
+</div>
+
+
+<button onclick="activateAlarm()" id="alarmBtn">
+    Activate Alarm
+</button>
+
+
+<div class="footer">
+    Last Updated:
+    <span id="time"></span>
+</div>
+
+</div>
+
+
+<script>
+
+let alarm=false;
+
+
+function updateDashboard(){
+
+    // Replace with actual sensor values
+    let gasValue=Math.floor(Math.random()*1000);
+    let fireDetected=Math.random()>0.8;
+
+
+    document.getElementById("gas").innerHTML =
+        gasValue + " PPM";
+
+
+    let fireText=document.getElementById("fire");
+    let alert=document.getElementById("alert");
+
+
+    if(fireDetected || gasValue > 700){
+
+        fireText.innerHTML="DANGER";
+
+        alert.innerHTML=
+        "🔴 FIRE/GAS ALERT! ALARM ACTIVE";
+
+        alert.className="alert danger";
+
+    }
+
+    else if(gasValue > 300){
+
+        fireText.innerHTML="WARNING";
+
+        alert.innerHTML=
+        "🟡 Gas Level Increasing";
+
+        alert.className="alert warning";
+
+    }
+
+    else{
+
+        fireText.innerHTML="SAFE";
+
+        alert.innerHTML=
+        "🟢 System Normal";
+
+        alert.className="alert safe";
+
+    }
+
+
+    document.getElementById("time").innerHTML =
+        new Date().toLocaleTimeString();
+
+}
+
+
+
+function activateAlarm(){
+
+    alarm=!alarm;
+
+    if(alarm){
+
+        document.getElementById("alarmBtn").innerHTML=
+        "Disable Alarm";
+
+        alert("🚨 Alarm Activated!");
+
+        // Send command to ESP32
+        // fetch('/alarm/on');
+
+    }
+
+    else{
+
+        document.getElementById("alarmBtn").innerHTML=
+        "Activate Alarm";
+
+        // fetch('/alarm/off');
+
+    }
+
+}
+
+
+updateDashboard();
+setInterval(updateDashboard,2000);
+
+
+</script>
+
+</body>
+</html>
