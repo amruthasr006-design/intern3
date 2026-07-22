@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weather Station Dashboard</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#2193b0,#6dd5ed);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.container{
+    width:90%;
+    max-width:900px;
+}
+
+h1{
+    text-align:center;
+    color:#fff;
+    margin-bottom:25px;
+}
+
+.dashboard{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:#fff;
+    border-radius:15px;
+    padding:25px;
+    text-align:center;
+    box-shadow:0 8px 20px rgba(0,0,0,0.2);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.icon{
+    font-size:45px;
+}
+
+.value{
+    font-size:32px;
+    font-weight:bold;
+    margin:15px 0;
+    color:#0077cc;
+}
+
+.label{
+    font-size:18px;
+    color:#555;
+}
+
+.footer{
+    text-align:center;
+    margin-top:25px;
+    color:white;
+    font-size:16px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h1>🌦 Weather Station Dashboard</h1>
+
+<div class="dashboard">
+
+    <div class="card">
+        <div class="icon">🌡</div>
+        <div class="value" id="temp">28°C</div>
+        <div class="label">Temperature</div>
+    </div>
+
+    <div class="card">
+        <div class="icon">💧</div>
+        <div class="value" id="humidity">65%</div>
+        <div class="label">Humidity</div>
+    </div>
+
+    <div class="card">
+        <div class="icon">🌬</div>
+        <div class="value" id="pressure">1012 hPa</div>
+        <div class="label">Pressure</div>
+    </div>
+
+    <div class="card">
+        <div class="icon">🌧</div>
+        <div class="value" id="rainfall">2.4 mm</div>
+        <div class="label">Rainfall</div>
+    </div>
+
+</div>
+
+<div class="footer">
+    Last Updated: <span id="time"></span>
+</div>
+
+</div>
+
+<script>
+
+function updateDashboard(){
+
+    // Replace these with actual sensor values from your ESP32/API
+
+    document.getElementById("temp").innerHTML =
+        (25 + Math.random()*10).toFixed(1) + "°C";
+
+    document.getElementById("humidity").innerHTML =
+        Math.floor(50 + Math.random()*40) + "%";
+
+    document.getElementById("pressure").innerHTML =
+        (1000 + Math.random()*30).toFixed(1) + " hPa";
+
+    document.getElementById("rainfall").innerHTML =
+        (Math.random()*10).toFixed(1) + " mm";
+
+    document.getElementById("time").innerHTML =
+        new Date().toLocaleTimeString();
+
+}
+
+updateDashboard();
+setInterval(updateDashboard,2000);
+
+</script>
+
+</body>
+</html>
