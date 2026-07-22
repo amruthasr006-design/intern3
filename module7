@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Air Quality Monitoring System</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.container{
+    width:380px;
+    background:#fff;
+    padding:30px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,0.25);
+}
+
+h1{
+    color:#333;
+    margin-bottom:20px;
+}
+
+.card{
+    background:#f4f4f4;
+    padding:20px;
+    border-radius:12px;
+    margin:15px 0;
+}
+
+.icon{
+    font-size:45px;
+}
+
+.value{
+    font-size:32px;
+    font-weight:bold;
+    color:#007bff;
+    margin:10px;
+}
+
+.label{
+    color:#555;
+    font-size:18px;
+}
+
+.status{
+    font-size:22px;
+    font-weight:bold;
+    margin-top:15px;
+    padding:10px;
+    border-radius:10px;
+}
+
+.good{
+    background:#28a745;
+    color:white;
+}
+
+.moderate{
+    background:#ffc107;
+    color:black;
+}
+
+.bad{
+    background:#dc3545;
+    color:white;
+}
+
+.footer{
+    margin-top:20px;
+    color:#777;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🌫 Air Quality Monitor</h1>
+
+<div class="card">
+    <div class="icon">🔥</div>
+    <div class="value" id="gasValue">0</div>
+    <div class="label">Gas Sensor Value (PPM)</div>
+</div>
+
+<div class="card">
+    <div class="icon">🌍</div>
+    <div class="label">Air Quality Status</div>
+    <div class="status" id="airStatus">
+        Checking...
+    </div>
+</div>
+
+<div class="footer">
+    Last Updated:
+    <span id="time"></span>
+</div>
+
+</div>
+
+
+<script>
+
+function updateAirQuality(){
+
+    // Replace with actual MQ sensor value
+    let gas = Math.floor(Math.random()*1000);
+
+    document.getElementById("gasValue").innerHTML = gas;
+
+    let status = document.getElementById("airStatus");
+
+    if(gas < 300){
+        status.innerHTML = "🟢 Good Air Quality";
+        status.className = "status good";
+    }
+    else if(gas < 700){
+        status.innerHTML = "🟡 Moderate Air Quality";
+        status.className = "status moderate";
+    }
+    else{
+        status.innerHTML = "🔴 Poor Air Quality";
+        status.className = "status bad";
+    }
+
+    document.getElementById("time").innerHTML =
+        new Date().toLocaleTimeString();
+}
+
+
+updateAirQuality();
+setInterval(updateAirQuality,2000);
+
+</script>
+
+</body>
+</html>
